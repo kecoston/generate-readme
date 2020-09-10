@@ -1,9 +1,12 @@
+
+// requirements to be installed for this application
 const inquirer = require("inquirer");
 const fs = require("fs");
 const util = require("util");
 
 const writeFileAsync = util.promisify(fs.writeFile);
 
+//questions which will be asked to the user for the input of the Readme. promptUser begins the application
 function promptUser() {
   return inquirer.prompt([
     {
@@ -69,10 +72,11 @@ function promptUser() {
   ]);
 }
 
+// used literals to structure the readme based off the answers the user provides.
 function generateReadMe(answers) {
   return `
   ## Project: ${answers.title}
-  ${license}
+  ${answers.license}
 
   # Description: 
   ${answers.description}
@@ -105,11 +109,13 @@ function generateReadMe(answers) {
 
   #Licensing
 
-  ${answers.name}  Copyright (C) ${answers.year} ${answers.github}
+  ${answers.title}  Copyright (C) ${answers.year} ${answers.github}
 
   `;
 
 }
+
+// links to be used to show the licensing badges at the top of the readme.
 
 // function badge() {
 
@@ -139,6 +145,8 @@ function generateReadMe(answers) {
 
 // }
 
+
+// This function uses init to organise the timing of the functions to generate the readme once the answers have been given.
 
 async function init() {
   try {
